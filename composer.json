@@ -13,6 +13,7 @@
         "MIT"
     ],
     "require" : {
+        "kuleuven/shibboleth-bundle": "dev-master"
 
     },
     "autoload" : {
@@ -20,7 +21,5 @@
             "Niif\\ShibbolethUserProviderBundle" : ""
         }
     },
-    "target-dir" : "Niif/ShibbolethUserProviderBundle",
-    "repositories" : [{
-    }]
+    "target-dir" : "Niif/ShibbolethUserProviderBundle"
 }
