@@ -1,0 +1,26 @@
+{
+    "name" : "niif/shibboleth-user-provider-bundle",
+    "description" : "General UserProvider bundle for shibboleth bundle",
+    "type" : "symfony-bundle",
+    "authors" : [{
+        "name" : "Gyula Szabó",
+        "email" : "gyufi@niif.hu"
+    }],
+    "keywords" : [
+        "shibboleth", "userprovider", "authorization", "bundle"
+    ],
+    "license" : [
+        "MIT"
+    ],
+    "require" : {
+
+    },
+    "autoload" : {
+        "psr-0" : {
+            "Niif\\ShibbolethUserProviderBundle" : ""
+        }
+    },
+    "target-dir" : "Niif/ShibbolethUserProviderBundle",
+    "repositories" : [{
+    }]
+}
