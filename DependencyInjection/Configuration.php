@@ -26,6 +26,8 @@ class Configuration implements ConfigurationInterface
         $rootNode
             ->children()
                 ->scalarNode('admin_role_regexp')->end()
+                ->scalarNode('user_role_regexp')->end()
+                ->scalarNode('guest_role_regexp')->end()
                 ->scalarNode('role_regexp')->end()
                 ->scalarNode('entitlement_serverparameter')->end()
             ->end();

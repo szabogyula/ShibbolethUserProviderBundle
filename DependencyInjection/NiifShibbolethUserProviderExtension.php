@@ -28,6 +28,12 @@ class NiifShibbolethUserProviderExtension extends Extension
         if (isset($config['admin_role_regexp'])) {
             $container->setParameter('shib_user_provider.admin_role_regexp',$config['admin_role_regexp']);
         }
+        if (isset($config['user_role_regexp'])) {
+            $container->setParameter('shib_user_provider.user_role_regexp',$config['admin_role_regexp']);
+        }
+        if (isset($config['guest_role_regexp'])) {
+            $container->setParameter('shib_user_provider.guest_role_regexp',$config['admin_role_regexp']);
+        }
         if (isset($config['role_regexp'])) {
             $container->setParameter('shib_user_provider.role_regexp',$config['role_regexp']);
         }

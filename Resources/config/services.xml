@@ -4,6 +4,15 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
+    <services>
+        <service id="shibboleth.user.provider" class="Niif\ShibbolethUserProviderBundle\Security\UserProvider">      
+            <argument>%shib_user_provider.admin_role_regexp%</argument>
+            <argument>%shib_user_provider.user_role_regexp%</argument>
+            <argument>%shib_user_provider.guest_role_regexp%</argument>
+            <argument>%shib_user_provider.role_regexp%</argument>
+            <argument>%shib_user_provider.entitlement_serverparameter%</argument>
+        </service>
+    </services>
     <!--
     <services>
         <service id="niif_shibboleth_user_provider.example" class="Niif\ShibbolethUserProviderBundle\Example">
