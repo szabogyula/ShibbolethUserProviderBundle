@@ -40,6 +40,13 @@ Configure the shibboleth bundle as you see in https://github.com/rmoreas/Shibbol
 
 Configure the user provider.
 
+* *entitlement_serverparameter*, the key of the $_SERVER array, that contain the users role values.
+* *entitlement_prefix*, the prefix of the role, for example urn:geant:niif.hu:hexaa:40:
+* *generate_custom_roles*, generate roles with the entitlement value, for example ROLE_customer from urn:geant:niif.hu:hexaa:40:customer entitlement. Default is FALSE.
+* *admin_role_regexp*, what value is the ROLE_ADMIN. Default is /^admin$/
+* *user_role_regexp*, what value is the ROLE_USER. Default is /^user$/
+* *guest_role_regexp*, what value is the ROLE_GUEST. Default is /^guest$/
+
 app/config/config.yml
 
 ```
