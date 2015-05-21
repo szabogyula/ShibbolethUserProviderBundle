@@ -6,6 +6,7 @@ Then you can implement access control as symfony does.
 
 # Install
 Insert lines above to composer.json:
+
 ```
 ...
  "repositories": [
@@ -40,6 +41,7 @@ Configure the shibboleth bundle as you see in https://github.com/rmoreas/Shibbol
 Configure the user provider.
 
 app/config/config.yml
+
 ```
 ...
 niif_shibboleth_user_provider:
@@ -51,7 +53,9 @@ niif_shibboleth_user_provider:
 #    generate_custom_roles: %shibboleth_user_provider_generate_custom_roles%
 ...
 ```
+
 in app/config/parameters.yml
+
 ```
 parameters
     ...
@@ -66,6 +70,7 @@ parameters
 
 When you develop an application you shoud simulate shibboleth authentication anyhow.
 You can do it in apache config, after enable *headers* and *env* modules:
+
 ```
         Alias /my_app /home/me/my_app/web
         <Directory /home/me/my_app/web>
