@@ -6,10 +6,11 @@
 
     <services>
         <service id="shibboleth.user.provider" class="Niif\ShibbolethUserProviderBundle\Security\UserProvider">      
+            <argument>%shib_user_provider.entitlement_prefix%</argument>
             <argument>%shib_user_provider.admin_role_regexp%</argument>
             <argument>%shib_user_provider.user_role_regexp%</argument>
             <argument>%shib_user_provider.guest_role_regexp%</argument>
-            <argument>%shib_user_provider.role_regexp%</argument>
+            <argument>%shib_user_provider.generate_custom_roles%</argument>
             <argument>%shib_user_provider.entitlement_serverparameter%</argument>
         </service>
     </services>

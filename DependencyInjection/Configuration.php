@@ -18,18 +18,19 @@ class Configuration implements ConfigurationInterface
     public function getConfigTreeBuilder()
     {
         $treeBuilder = new TreeBuilder();
-        $rootNode = $treeBuilder->root('niif_shibboleth_user_provider');
+        $rootNode = $treeBuilder->root('shibboleth_user_provider');
 
         // Here you should define the parameters that are allowed to
         // configure your bundle. See the documentation linked above for
         // more information on that topic.
         $rootNode
             ->children()
-                ->scalarNode('admin_role_regexp')->end()
-                ->scalarNode('user_role_regexp')->end()
-                ->scalarNode('guest_role_regexp')->end()
-                ->scalarNode('role_regexp')->end()
-                ->scalarNode('entitlement_serverparameter')->end()
+                ->scalarNode('entitlement_prefix')->defaultValue("")->end()
+                ->scalarNode('admin_role_regexp')->defaultValue("/^admin$/")->end()
+                ->scalarNode('user_role_regexp')->defaultValue("/^user$/")->end()
+                ->scalarNode('guest_role_regexp')->defaultValue("/^guest$/")->end()
+                ->booleanNode('generate_custom_roles')->defaultFalse()->end()
+                ->scalarNode('entitlement_serverparameter')->defaultValue("")->end()
             ->end();
         return $treeBuilder;
     }

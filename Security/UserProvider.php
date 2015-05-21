@@ -13,48 +13,49 @@ use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 
 class UserProvider implements ShibbolethUserProviderInterface
 {
+    protected $entitlement_prefix;
     protected $admin_role_regexp;
     protected $user_role_regexp;
     protected $guest_role_regexp;
-    protected $role_regexp;
+    protected $generate_custom_roles;
     protected $entitlement_serverparameter;
 
     public function __construct(
+        $entitlement_prefix,
         $admin_role_regexp,
         $user_role_regexp,
         $guest_role_regexp,
-        $role_regexp,
+        $generate_custom_roles,
         $entitlement_serverparameter)
     {
+        $this->entitlement_prefix = $entitlement_prefix;
         $this->admin_role_regexp = $admin_role_regexp;
         $this->user_role_regexp = $user_role_regexp;
         $this->guest_role_regexp = $guest_role_regexp;
-        $this->role_regexp = $role_regexp;
+        $this->generate_custom_roles = $generate_custom_roles;
         $this->entitlement_serverparameter = $entitlement_serverparameter;
     }
     public function loadUserByUsername($username)
     {
-        $has_org = FALSE;
         $roles = array();
         if (array_key_exists($this->entitlement_serverparameter,$_SERVER)) {
-            if (preg_match($this->admin_role_regexp,$_SERVER[$this->entitlement_serverparameter])){
-                $roles[] = "ROLE_ADMIN";
-            }
-            if (preg_match($this->user_role_regexp,$_SERVER[$this->entitlement_serverparameter])){
-                $roles[] = "ROLE_USER";
-            }
-            if (preg_match($this->guest_role_regexp,$_SERVER[$this->entitlement_serverparameter])){
-                $roles[] = "ROLE_GUEST";
-            }
             foreach(explode(';',$_SERVER[$this->entitlement_serverparameter]) as $e) {
-                if (preg_match($this->role_regexp,$e)) {
-                    $roles[] = 'ROLE_' . preg_replace($this->role_regexp,'',$e);
-                    $has_org = TRUE;
+                if (preg_match("/^".$this->entitlement_prefix."/", $e)) {
+                    $entitlement_value = preg_replace("/".$this->entitlement_prefix."/", "", $e);
+                    if (preg_match($this->admin_role_regexp,$entitlement_value)){
+                        $roles[] = "ROLE_ADMIN";
+                    }
+                    elseif (preg_match($this->user_role_regexp,$entitlement_value)){
+                        $roles[] = "ROLE_USER";
+                    }
+                    elseif (preg_match($this->guest_role_regexp,$entitlement_value)){
+                        $roles[] = "ROLE_GUEST";
+                    }
+                    elseif ($this->generate_custom_roles) {
+                        $roles[] = 'ROLE_' . $entitlement_value;
+                    }
                 }
             }
-        }
-        if (! in_array("ROLE_ADMIN",$roles) AND ! $has_org) {
-            $roles=array();
         }
         $user = new User($username,null,$roles);	    
         return $user;            
