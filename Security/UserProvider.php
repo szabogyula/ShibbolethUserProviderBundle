@@ -18,6 +18,8 @@ class UserProvider implements ShibbolethUserProviderInterface
     protected $user_role_regexp;
     protected $guest_role_regexp;
     protected $generate_custom_roles;
+    protected $custom_role_prefix;
+    protected $custom_additional_role;
     protected $entitlement_serverparameter;
 
     public function __construct(
@@ -26,6 +28,8 @@ class UserProvider implements ShibbolethUserProviderInterface
         $user_role_regexp,
         $guest_role_regexp,
         $generate_custom_roles,
+        $custom_role_prefix,
+        $custom_additional_role,
         $entitlement_serverparameter)
     {
         $this->entitlement_prefix = $entitlement_prefix;
@@ -33,6 +37,8 @@ class UserProvider implements ShibbolethUserProviderInterface
         $this->user_role_regexp = $user_role_regexp;
         $this->guest_role_regexp = $guest_role_regexp;
         $this->generate_custom_roles = $generate_custom_roles;
+        $this->custom_role_prefix = $custom_role_prefix;
+        $this->custom_additional_role = $custom_additional_role;
         $this->entitlement_serverparameter = $entitlement_serverparameter;
     }
     public function loadUserByUsername($username)
@@ -41,7 +47,7 @@ class UserProvider implements ShibbolethUserProviderInterface
         if (array_key_exists($this->entitlement_serverparameter,$_SERVER)) {
             foreach(explode(';',$_SERVER[$this->entitlement_serverparameter]) as $e) {
                 if (preg_match("/^".$this->entitlement_prefix."/", $e)) {
-                    $entitlement_value = preg_replace("/".$this->entitlement_prefix."/", "", $e);
+                    $entitlement_value = preg_replace("/^".$this->entitlement_prefix."/", "", $e);
                     if (preg_match($this->admin_role_regexp,$entitlement_value)){
                         $roles[] = "ROLE_ADMIN";
                     }
@@ -52,11 +58,15 @@ class UserProvider implements ShibbolethUserProviderInterface
                         $roles[] = "ROLE_GUEST";
                     }
                     elseif ($this->generate_custom_roles) {
-                        $roles[] = 'ROLE_' . $entitlement_value;
+                        $roles[] = 'ROLE_' . preg_replace("/^".$this->custom_role_prefix."/", "", $entitlement_value);
+                        if ($this->custom_additional_role) {
+                            $roles[] = $this->custom_additional_role;
+                        }
                     }
                 }
             }
         }
+        $roles = array_unique($roles);
         $user = new User($username,null,$roles);	    
         return $user;            
     }

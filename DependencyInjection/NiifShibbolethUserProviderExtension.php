@@ -40,6 +40,12 @@ class NiifShibbolethUserProviderExtension extends Extension
         if (isset($config['generate_custom_roles'])) {
             $container->setParameter('shib_user_provider.generate_custom_roles',$config['generate_custom_roles']);
         }
+        if (isset($config['custom_role_prefix'])) {
+            $container->setParameter('shib_user_provider.custom_role_prefix',$config['custom_role_prefix']);
+        }
+        if (isset($config['custom_additional_role'])) {
+            $container->setParameter('shib_user_provider.custom_additional_role',$config['custom_additional_role']);
+        }
         if (isset($config['entitlement_serverparameter'])) {
             $container->setParameter('shib_user_provider.entitlement_serverparameter',$config['entitlement_serverparameter']);
         }

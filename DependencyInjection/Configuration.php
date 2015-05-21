@@ -30,6 +30,8 @@ class Configuration implements ConfigurationInterface
                 ->scalarNode('user_role_regexp')->defaultValue("/^user$/")->end()
                 ->scalarNode('guest_role_regexp')->defaultValue("/^guest$/")->end()
                 ->booleanNode('generate_custom_roles')->defaultFalse()->end()
+                ->scalarNode('custom_role_prefix')->defaultValue("")->end()
+                ->scalarNode('custom_additional_role')->defaultValue("ROLE_USER")->end()
                 ->scalarNode('entitlement_serverparameter')->defaultValue("")->end()
             ->end();
         return $treeBuilder;

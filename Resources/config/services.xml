@@ -11,6 +11,8 @@
             <argument>%shib_user_provider.user_role_regexp%</argument>
             <argument>%shib_user_provider.guest_role_regexp%</argument>
             <argument>%shib_user_provider.generate_custom_roles%</argument>
+            <argument>%shib_user_provider.custom_role_prefix%</argument>
+            <argument>%shib_user_provider.custom_additional_role%</argument>
             <argument>%shib_user_provider.entitlement_serverparameter%</argument>
         </service>
     </services>
