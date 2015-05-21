@@ -59,7 +59,7 @@ niif_shibboleth_user_provider:
     entitlement_serverparameter: %shibboleth_user_provider_entitlement_serverparameter%
     entitlement_prefix: %shibboleth_user_provider_entitlement_prefix%
     generate_custom_roles: %shibboleth_user_provider_generate_custom_roles%
-    custom_role_prefix: %shibboleth_user_provider_custom_role_prefix%
+#    custom_role_prefix: %shibboleth_user_provider_custom_role_prefix%
 #    custom_additional_role: %shibboleth_user_provider_custom_additional_role%
 #    admin_role_regexp: %shibboleth_user_provider_admin_role_regexp%
 #    user_role_regexp: %shibboleth_user_provider_user_role_regexp%
