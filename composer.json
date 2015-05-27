@@ -13,7 +13,7 @@
         "MIT"
     ],
     "require" : {
-        "kuleuven/shibboleth-bundle": "dev-master"
+        "jonathonwalz/shibboleth-bundle": "~1.0"
 
     },
     "autoload" : {
