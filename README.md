@@ -77,6 +77,28 @@ parameters
     ...
 ```
 
+in ```app/config/security.yml```
+
+```yaml
+    ...
+    providers:
+        ...
+        shibboleth:
+            id: shibboleth.user.provider
+        ...
+    ...
+    firewalls:
+        ...            
+        secured_area:
+            pattern:    ^/
+            shibboleth: true
+            logout:
+                path: /logout
+                target: https://www.example.com/logged_out
+                success_handler: security.logout.handler.shibboleth
+        ...
+```
+
 # Simulate shibboleth authentication in development environment
 
 When you develop an application you shoud simulate shibboleth authentication anyhow.
