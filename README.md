@@ -70,10 +70,10 @@ niif_shibboleth_user_provider:
 ```
   custom_additional_role:  true
 
-                           entitlement_prefix        the value
-                        |-------------------------|   |-------|
+                           entitlement_prefix          the value
+                        |-------------------------|    |------|
 value from federation:  urn:geant:niif.hu:hexaa:40:org:customer
-                                                  |---|
+                                                   |--|
                                             custom_role_prefix
 The result:
   {ROLE_customer}
