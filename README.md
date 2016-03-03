@@ -8,7 +8,7 @@ Then you can implement access control as symfony does.
 
 Insert lines above to ```composer.json```:
 
-```
+```json
 ...
  "repositories": [
         {
@@ -27,7 +27,7 @@ composer require niif/shibboleth-user-provider-bundle
 
 Update ```app/AppKernel.php```
 
-```
+```php
 $bundles = array(
             ...
             new KULeuven\ShibbolethBundle\ShibbolethBundle(),
@@ -52,7 +52,7 @@ Configure the user provider.
 
 update your ```app/config/config.yml```
 
-```
+```yaml
 ...
 niif_shibboleth_user_provider:
     entitlement_serverparameter: %shibboleth_user_provider_entitlement_serverparameter%
@@ -82,7 +82,7 @@ The result:
 
 in ```app/config/parameters.yml```
 
-```
+```yaml
 parameters
     ...
     shibboleth_user_provider_entitlement_serverparameter: edupersonentitlement

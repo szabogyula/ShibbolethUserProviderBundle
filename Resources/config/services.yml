@@ -1,0 +1,12 @@
+services:
+    shibboleth.user.provider:
+        class: Niif\ShibbolethUserProviderBundle\Security\UserProvider
+        arguments:
+            - %shib_user_provider.entitlement_prefix%
+            - %shib_user_provider.admin_role_regexp%
+            - %shib_user_provider.user_role_regexp%
+            - %shib_user_provider.guest_role_regexp%
+            - %shib_user_provider.generate_custom_roles%
+            - %shib_user_provider.custom_role_prefix%
+            - %shib_user_provider.custom_additional_role%
+            - %shib_user_provider.entitlement_serverparameter%
