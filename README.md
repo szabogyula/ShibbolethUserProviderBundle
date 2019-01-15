@@ -13,7 +13,7 @@ Insert lines above to ```composer.json```:
  "repositories": [
         {
             "type": "vcs",
-            "url":  "git@dev.niif.hu:gyufi/shibbolethuserproviderbundle.git"
+            "url":  "https://github.com/szabogyula/ShibbolethUserProviderBundle"
         }
     ],
 ...
@@ -30,7 +30,6 @@ Update ```app/AppKernel.php```
 ```php
 $bundles = array(
             ...
-            new KULeuven\ShibbolethBundle\ShibbolethBundle(),
             new Niif\ShibbolethUserProviderBundle\NiifShibbolethUserProviderBundle(),
             ...
         );
@@ -41,8 +40,9 @@ Configure the shibboleth bundle as you see in https://github.com/rmoreas/Shibbol
 
 Configure the user provider.
 
-* *entitlement_serverparameter*, the key of the $_SERVER array, that contain the users role values. **Required**
-* *entitlement_prefix*, the prefix of the role, for example *urn:geant:niif.hu:hexaa:40:* **Required**
+* *default_role*, the default role for example: "ROLE_USER" 
+* *entitlement_serverparameter*, the key of the $_SERVER array, that contain the users role values.
+* *entitlement_prefix*, the prefix of the role, for example *urn:geant:niif.hu:hexaa:40:*
 * *generate_custom_roles*, generate roles with the entitlement value, for example *ROLE_customer* from *urn:geant:niif.hu:hexaa:40:customer* entitlement. Default is ```FALSE```.
 * *custom_role_prefix*, the prefix of custom role if exists. For example *urn:geant:niif.hu:hexaa:40:org:sztaki* the prefix is *org:* and the role will be: ROLE_sztaki. Default ```""```.
 * *custom_additional_role*, if exists, the role is taking to user if has custom role, typically ROLE_USER. Default: ```ROLE_USER```.
@@ -54,15 +54,17 @@ update your ```app/config/config.yml```
 
 ```yaml
 ...
-niif_shibboleth_user_provider:
-    entitlement_serverparameter: %shibboleth_user_provider_entitlement_serverparameter%
-    entitlement_prefix: %shibboleth_user_provider_entitlement_prefix%
-    generate_custom_roles: %shibboleth_user_provider_generate_custom_roles%
-#    custom_role_prefix: %shibboleth_user_provider_custom_role_prefix%
-#    custom_additional_role: %shibboleth_user_provider_custom_additional_role%
-#    admin_role_regexp: %shibboleth_user_provider_admin_role_regexp%
-#    user_role_regexp: %shibboleth_user_provider_user_role_regexp%
-#    guest_role_regexp: %shibboleth_user_provider_guest_role_regexp%
+niif_shibboleth_user_provider: ~
+#niif_shibboleth_user_provider:
+#    default_user:                "%shibboleth_user_provider_default_user%"
+#    entitlement_serverparameter: "%shibboleth_user_provider_entitlement_serverparameter%"
+#    entitlement_prefix:          "%shibboleth_user_provider_entitlement_prefix%"
+#    generate_custom_roles:       "%shibboleth_user_provider_generate_custom_roles%"
+#    custom_role_prefix:          "%shibboleth_user_provider_custom_role_prefix%"
+#    custom_additional_role:      "%shibboleth_user_provider_custom_additional_role%"
+#    admin_role_regexp:           "%shibboleth_user_provider_admin_role_regexp%"
+#    user_role_regexp:            "%shibboleth_user_provider_user_role_regexp%"
+#    guest_role_regexp:           "%shibboleth_user_provider_guest_role_regexp%"
 ...
 ```
 

@@ -25,6 +25,9 @@ class NiifShibbolethUserProviderExtension extends Extension
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.yml');
 
+        if (isset($config['default_role'])) {
+            $container->setParameter('shib_user_provider.default_role', $config['default_role']);
+        }
         if (isset($config['entitlement_prefix'])) {
             $container->setParameter('shib_user_provider.entitlement_prefix', $config['entitlement_prefix']);
         }

@@ -25,6 +25,7 @@ class Configuration implements ConfigurationInterface
         // more information on that topic.
         $rootNode
             ->children()
+                ->scalarNode('default_role')->defaultValue("")->end()
                 ->scalarNode('entitlement_prefix')->defaultValue("")->end()
                 ->scalarNode('admin_role_regexp')->defaultValue("/^admin$/")->end()
                 ->scalarNode('user_role_regexp')->defaultValue("/^user$/")->end()

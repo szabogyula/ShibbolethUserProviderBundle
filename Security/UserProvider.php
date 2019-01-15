@@ -3,14 +3,14 @@
 
 namespace Niif\ShibbolethUserProviderBundle\Security;
 
-use KULeuven\ShibbolethBundle\Security\ShibbolethUserProviderInterface;
-use KULeuven\ShibbolethBundle\Security\ShibbolethUserToken;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\User;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
+use Symfony\Component\Security\Core\User\UserProviderInterface;
 
-class UserProvider implements ShibbolethUserProviderInterface
+class UserProvider implements UserProviderInterface
 {
+    protected $default_role;
     protected $entitlement_prefix;
     protected $admin_role_regexp;
     protected $user_role_regexp;
@@ -21,6 +21,7 @@ class UserProvider implements ShibbolethUserProviderInterface
     protected $entitlement_serverparameter;
 
     public function __construct(
+        $default_role,
         $entitlement_prefix,
         $admin_role_regexp,
         $user_role_regexp,
@@ -30,6 +31,7 @@ class UserProvider implements ShibbolethUserProviderInterface
         $custom_additional_role,
         $entitlement_serverparameter
     ) {
+        $this->default_role = $default_role;
         $this->entitlement_prefix = $entitlement_prefix;
         $this->admin_role_regexp = $admin_role_regexp;
         $this->user_role_regexp = $user_role_regexp;
@@ -42,6 +44,9 @@ class UserProvider implements ShibbolethUserProviderInterface
     public function loadUserByUsername($username)
     {
         $roles = array();
+        if ($this->default_role) {
+            $roles[] = $this->default_role;
+        }
         if (array_key_exists($this->entitlement_serverparameter, $_SERVER)) {
             foreach (explode(';', $_SERVER[$this->entitlement_serverparameter]) as $e) {
                 if (preg_match('/^'.$this->entitlement_prefix.'/', $e)) {
@@ -64,18 +69,6 @@ class UserProvider implements ShibbolethUserProviderInterface
         $roles = array_unique($roles);
         $user = new User($username, null, $roles);
 
-        return $user;
-    }
-
-    /**
-     * Create user object using shibboleth attributes stored in the token.
-     * @param  ShibbolethUserToken $token token
-     * @return User                       user
-     */
-    public function createUser(ShibbolethUserToken $token)
-    {
-        $user = new User();
-        $user->setUid($token->getUsername());
         return $user;
     }
 
