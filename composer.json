@@ -13,8 +13,7 @@
         "MIT"
     ],
     "require" : {
-        "jonathonwalz/shibboleth-bundle": "~1.0"
-
+        "niif/shib-auth-bundle": "~1.0"
     },
     "autoload" : {
         "psr-0" : {
